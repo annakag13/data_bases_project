@@ -1,0 +1,4 @@
+SELECT l.name,ml.round, cl1.name as team_home, cl2.name as team_guest, a.name as arena_name, m.match_time, m.match_date, ((mr.goal_home_over + mr.goal_guest_against) || ' - ' || (mr.goal_guest_over + mr.goal_home_against)) as score, m.referee, m.assistant_referee1, m.assistant_referee2
+FROM ((((((((MATCH as m JOIN MATCHWEEK as ml on m.id_matchweek = ml.id_matchweek)JOIN league as l on ml.id_league = l.id_league) JOIN TEAM_PER_SEASON as t on t.id_team_per_season = m.id_team_home)JOIN CLUB as cl1 on cl1.EPO_id = t.EPO_id)join TEAM_PER_SEASON as t1 on t1.id_team_per_season = m.id_team_guest)JOIN CLUB as cl2 on cl2.EPO_id = t1.EPO_id) JOIN ARENA as a on a.id_arena = t.id_arena) JOIN MATCH_RESULT  as mr on mr.id_match = m.id_match);
+
+--Μπορούμε να κάνουμε και group_concat για να παίρνουμε για κάθε αγωνιστική 
